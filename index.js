@@ -55,9 +55,9 @@ function getRecentPlays() {
 
 	fetch(url, fetchOptions).then(r => r.json()).then(data => {
 		console.log(window.__DATA__ = data);
-		let div = document.createElement('div');
-		div.textContent = JSON.stringify(data, true);
-		document.body.appendChild(div);
+		let pre = document.createElement('pre');
+		pre.textContent = JSON.stringify(data, null, '\t');
+		document.body.appendChild(pre);
 	});
 }
 
