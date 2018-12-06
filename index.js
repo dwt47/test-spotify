@@ -39,7 +39,7 @@ if (location.hash) {
 		params[k] = v;
 	});
 
-	fetchOptions.headers = { Authorization: `Bearer ${params.access_token}` } };
+	fetchOptions.headers = { Authorization: `Bearer ${params.access_token}` };
 } else if (location.search && location.search.startsWith('?error')) {
 	let h3 = document.createElement('h3');
 	h3.textContent = "Trouble Logging In";
