@@ -51,14 +51,30 @@ if (location.hash) {
 }
 
 function getRecentPlays() {
-	let url = `https://api.spotify.com/v1/me/player/recently-played`;
+	let url = `https://api.spotify.com/v1/me/player/recently-played?limit=50`;
 
 	fetch(url, fetchOptions).then(r => r.json()).then(data => {
 		console.log(window.__DATA__ = data);
-		let pre = document.createElement('pre');
-		pre.textContent = JSON.stringify(data, null, '\t');
-		document.body.appendChild(pre);
+		presentItems(data.items);
 	});
+}
+
+function presentItems(items) {
+	let ul = document.createElement('ul');
+	for (let {track = {}, played_at = ''} of items) {
+		let {
+			name = '',
+			artists: [{name: artistName = ''} = {}],
+			album = {},
+		} = track;
+
+		let li = document.createElement('li');
+		li.textContent = `${name} - ${artistName} - ${played_at}`;
+
+		ul.appendChild(li);
+	}
+
+	document.body.appendChild(ul);
 }
 
 if (fetchOptions.headers) {
